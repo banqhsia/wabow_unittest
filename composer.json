@@ -1,0 +1,13 @@
+{
+    "name": "ben/wabow_unittest",
+    "authors": [
+        {
+            "name": "Ben",
+            "email": "ben@wabow.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": ">=4.8 < 6.0"
+    }
+}

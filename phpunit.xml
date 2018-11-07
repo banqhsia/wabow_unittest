@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true">
+    <testsuites>
+        <testsuite name="SlimSkeleton">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <directory suffix=".php">app</directory>
+        <exclude>
+            <file>vendor</file>
+        </exclude>
+    </filter>
+</phpunit>
