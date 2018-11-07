@@ -2,15 +2,15 @@
 
 namespace App;
 
-class User implements UserInterface
+class GlobalUser implements UserInterface
 {
     public function isExists($email)
     {
-        return false;
+        return true;
     }
 
     public function getPassword()
     {
-        return md5(uniqid());
+        return md5('11111' . uniqid());
     }
 }
