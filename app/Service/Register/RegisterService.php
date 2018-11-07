@@ -59,7 +59,7 @@ class RegisterService
         $register = $this->user->createUser($user);
 
         if ($register) {
-            return "註冊成功";
+            return "$username 註冊成功";
         }
 
         return "註冊失敗";
