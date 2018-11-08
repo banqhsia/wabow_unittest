@@ -9,8 +9,7 @@ use App\Service\Register\RegisterService;
 
 class RequestTest extends TestCase
 {
-
-    public function __construct()
+    public function setUp()
     {
         $this->user = new User;
         $this->request = new Request;
