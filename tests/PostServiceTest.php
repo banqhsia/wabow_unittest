@@ -24,7 +24,25 @@ class PostServiceTest extends TestCase
      */
     public function test_should_receive_UnexpectedValueException_when_title_is_invalid()
     {
+        $this->request->method('getDecodedBody')->with('title')->willReturn('444');
 
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('Title');
+
+        $this->target->post();
+    }
+
+    public function test_should_receive_UnexpectedValueException_when_content_contains_html()
+    {
+        $this->request->method('getDecodedBody')->will($this->returnValueMap([
+            ['title', '444444444444'],
+            ['content', '<html>5</html>'],
+        ]));
+
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('Content');
+
+        $this->target->post();
     }
 
     // TODO: 實作其他測試案例
