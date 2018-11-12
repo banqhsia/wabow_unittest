@@ -47,7 +47,7 @@ class RegisterService
 
         $gender = $this->request->getGender();
 
-        if (1 !== $gender || 2 !== $gender) {
+        if (! (1 === $gender || 2 === $gender)) {
             return "Gender not allowed.";
         }
 
