@@ -19,36 +19,51 @@ class RequestTest extends TestCase
 
     public function test_should_alert_when_username_short_than_4()
     {
-        $this->request->method('getUsername')->willReturn('Ben');
+        $this->givenUsername('Ben');
 
-        $expected = "Username too short.";
-        $actual = $this->target->register();
-
-        $this->assertEquals($expected, $actual);
+        $this->registerShouldBe('Username too short.');
     }
 
     public function test_should_alert_when_gender_is_not_1_or_2()
     {
+        $this->givenUsername('Benyihsia');
+        $this->givenGender(6);
 
-        $this->request->method('getUsername')->willReturn('Benyihsia');
-        $this->request->method('getGender')->willReturn(6);
-
-        $expected = "Gender not allowed.";
-        $actual = $this->target->register();
-
-        $this->assertEquals($expected, $actual);
+        $this->registerShouldBe('Gender not allowed.');
     }
 
     public function test_should_call_createUser_with_user_data()
     {
-        $this->request->method('getUsername')->willReturn('Benyihsia');
-        $this->request->method('getGender')->willReturn(1);
+        $this->givenUsername('Benyihsia');
+        $this->givenGender(1);
 
-        $this->user->expects($this->once())->method('createUser')->with([
+        $this->createUserShouldBeCalledWith(1, [
             'username' => 'Benyihsia',
             'gender' => 1,
         ]);
 
         $this->target->register();
+    }
+
+    private function createUserShouldBeCalledWith($times, $value)
+    {
+        $this->user->expects($this->exactly($times))
+            ->method('createUser')
+            ->with($value);
+    }
+
+    private function givenUsername($name)
+    {
+        $this->request->method('getUsername')->willReturn($name);
+    }
+
+    private function givenGender($gender)
+    {
+        $this->request->method('getGender')->willReturn($gender);
+    }
+
+    private function registerShouldBe($message)
+    {
+        $this->assertEquals($message, $this->target->register());
     }
 }
